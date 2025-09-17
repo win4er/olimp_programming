@@ -32,3 +32,4 @@
 #include("algorithms/sorts/sorts.typ")
 #include("algorithms/complete_search/complete_search.typ")
 #include("algorithms/greedy/greedy.typ")
+#include("algorithms/dynamic_programming/dp.typ")
