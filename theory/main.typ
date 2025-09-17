@@ -30,19 +30,5 @@
 = Algorithms
 
 #include("algorithms/sorts/sorts.typ")
-#include("algorithms/sorts/bubble_sort.typ")
-#pagebreak()
-#include("algorithms/sorts/insertion_sort.typ")
-#pagebreak()
-#include("algorithms/sorts/selection_sort.typ")
-#pagebreak()
-#include("algorithms/sorts/merge_sort.typ")
-#pagebreak()
-#include("algorithms/sorts/counting_sort.typ")
-#pagebreak()
-#include("algorithms/sorts/sorting_lower_bound.typ")
-#pagebreak()
-#include("algorithms/sorts/quick_sort.typ")
-#pagebreak()
-
-
+#include("algorithms/complete_search/complete_search.typ")
+#include("algorithms/greedy/greedy.typ")

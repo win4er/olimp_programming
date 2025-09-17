@@ -1,4 +1,3 @@
-#import "../template.typ": *
 
 == Priority Queue
 

@@ -1,4 +1,3 @@
-#import "../template.typ": *
 
 == Stack
 Он предоставляет нам две O(1) операции:
@@ -12,14 +11,14 @@
 Stack = FILO (first in last out)
 
 #rect(
-```cpp
-stack<int> s;
-s.push(3); // {3}
-s.push(2); // {2, 3}
-s.push(5); // {5, 2, 3} 
-cout << s.top(); // 5
-s.pop();
-cout << s.top(); // 2
+  ```cpp
+  stack<int> s;
+  s.push(3); // {3}
+  s.push(2); // {2, 3}
+  s.push(5); // {5, 2, 3} 
+  cout << s.top(); // 5
+  s.pop();
+  cout << s.top(); // 2
 ```)
 
 #show link: {underline}
