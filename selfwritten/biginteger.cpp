@@ -8,6 +8,7 @@ class big_int {
 private:
     vector<int> digits;
 public:
+    big_int();
     big_int(const char* number);        
     big_int(string& number);
     size_t size() const;
@@ -15,9 +16,16 @@ public:
     friend ostream& operator<<(ostream& out, const big_int& number);
     big_int& operator=(const big_int& n2);
     big_int& operator+=(const big_int& n2);
+    big_int operator+(const big_int& n2);
     big_int& operator-=(const big_int& n2);
+    big_int operator-(const big_int& n2);
     big_int& operator*=(const big_int& n2);
 };
+
+big_int::big_int() {
+    this->digits = {};
+    this->digits.push_back(0);
+}
 
 big_int::big_int(const char* number) {
     size_t ind=0;
@@ -101,6 +109,13 @@ big_int& big_int::operator+=(const big_int& number) {
     return *this;
 }
 
+big_int big_int::operator+(const big_int& n2) {
+    big_int result;
+    result = *this;
+    result += n2;
+    return result;
+}
+
 big_int& big_int::operator-=(const big_int& number) {
     size_t size_1 = this->size();
     size_t size_2 = number.size();
@@ -113,7 +128,6 @@ big_int& big_int::operator-=(const big_int& number) {
             if (this->digits[i] < number[i]) {
                 this->digits[i] += 10 - number[i];
                 this->digits[i+1] -= 1;
-                
             } else {
                 this->digits[i] = this->digits[i] - number[i];
             }
@@ -132,13 +146,19 @@ big_int& big_int::operator-=(const big_int& number) {
     return *this;
 }
 
+big_int big_int::operator-(const big_int& n2) {
+    big_int result;
+    result = *this;
+    result -= n2;
+    return result;
+}
+
 int main() {
     big_int number("1000000");
     std::cout << number << std::endl;
     big_int number2("10001");
-    number -= number2;
-    std::cout << number << std::endl;
-    number += number2;
+    std::cout << number-number2 << std::endl;
+    number = number-number2;
     std::cout << number << std::endl;
     return 0;
 }
