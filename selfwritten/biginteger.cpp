@@ -15,6 +15,8 @@ public:
     friend ostream& operator<<(ostream& out, const big_int& number);
     big_int& operator=(const big_int& n2);
     big_int& operator+=(const big_int& n2);
+    big_int& operator-=(const big_int& n2);
+    big_int& operator*=(const big_int& n2);
 };
 
 big_int::big_int(const char* number) {
@@ -29,6 +31,11 @@ big_int::big_int(const char* number) {
     while (ind>0) {
         digits.push_back(number[--ind]-'0');
     }
+    ind = this->digits.size()-1;
+    while (this->digits[ind] == 0) {
+        this->digits.pop_back();
+        ind--;
+    }
 }
 
 big_int::big_int(string& number) {
@@ -39,6 +46,11 @@ big_int::big_int(string& number) {
             throw("error");
         }
         this->digits.push_back(number[i]-'0');
+    }
+    size_t ind = this->digits.size()-1;
+    while (this->digits[ind] == 0) {
+        this->digits.pop_back();
+        ind--;
     }
 }
 
@@ -76,18 +88,56 @@ big_int& big_int::operator+=(const big_int& number) {
     for (size_t i=0; i<size_1; ++i) {
         this->digits[i] += up;
         if (i < size_2) {
-            if ((this->digits[i] + number[i]) > 10)
-                up = (this->digits[i] + number[i]) % 10;
-            this->digits[i] += number[i];
+            up = (this->digits[i] + number[i]) / 10;
+            this->digits[i] = (this->digits[i] + number[i]) % 10;
+        } else {
+            up = this->digits[i] / 10;
+            this->digits[i] %= 10;
         }
+    }
+    if (up) {
+        this->digits.push_back(up);
+    }
+    return *this;
+}
+
+big_int& big_int::operator-=(const big_int& number) {
+    size_t size_1 = this->size();
+    size_t size_2 = number.size();
+
+    if (size_2 > size_1) {
+        throw("underflow");
+    }
+    for (int i=0; i<size_1; ++i) {
+        if (i < size_2) {
+            if (this->digits[i] < number[i]) {
+                this->digits[i] += 10 - number[i];
+                this->digits[i+1] -= 1;
+                
+            } else {
+                this->digits[i] = this->digits[i] - number[i];
+            }
+        } else {
+            if (this->digits[i] < 0) {
+                this->digits[i] += 10;
+                this->digits[i+1] -= 1;
+            }
+        }
+    }
+    size_t ind = this->digits.size()-1;
+    while (this->digits[ind] == 0) {
+        this->digits.pop_back();
+        ind--;
     }
     return *this;
 }
 
 int main() {
-    big_int number("1000000000000000000000000000000000000000000000000000");
+    big_int number("1000000");
     std::cout << number << std::endl;
-    big_int number2("25");
+    big_int number2("10001");
+    number -= number2;
+    std::cout << number << std::endl;
     number += number2;
     std::cout << number << std::endl;
     return 0;
