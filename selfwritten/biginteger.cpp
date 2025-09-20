@@ -13,7 +13,10 @@ public:
     big_int(string& number);
     size_t size() const;
     int operator[](const int ind) const;
+    
     friend ostream& operator<<(ostream& out, const big_int& number);
+    friend bool operator==(const big_int& n1, const big_int& n2);
+
     big_int& operator=(const big_int& n2);
     big_int& operator+=(const big_int& n2);
     big_int operator+(const big_int& n2);
@@ -63,7 +66,7 @@ big_int::big_int(string& number) {
 }
 
 size_t big_int::size() const {
-    return digits.size();
+    return this->digits.size();
 }
 
 int big_int::operator[](const int ind) const {
@@ -75,6 +78,10 @@ ostream& operator<<(ostream& out, const big_int& number) {
         out << number[i];
     }
     return out;
+}
+
+bool operator==(const big_int& n1, const big_int& n2) {
+    return n1.digits == n2.digits;
 }
 
 big_int& big_int::operator=(const big_int& number) {
@@ -151,6 +158,14 @@ big_int big_int::operator-(const big_int& n2) {
     result = *this;
     result -= n2;
     return result;
+}
+
+big_int& big_int::operator*=(const big_int& n2) {
+    if (*this == big_int() || n2 == big_int()) {
+        *this = big_int();
+        return *this;
+    }
+    
 }
 
 int main() {
